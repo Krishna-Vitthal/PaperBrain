@@ -1,50 +1,158 @@
-# Welcome to your Expo app 👋
+# 🧠 PaperBrain
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> Upload any PDF. Ask anything. Get answers grounded in your document — powered by RAG + Groq.
 
-## Get started
+PaperBrain is an Android app that lets you chat with your PDFs using **Retrieval-Augmented Generation (RAG)**. Upload a document, ask questions in natural language, and get accurate, context-aware answers — not hallucinations.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 🔍 How It Works
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+📄 PDF Upload
+     ↓
+🔪 Text Chunking
+     ↓
+🧮 Embedding Generation
+     ↓
+🗄️ Vector Store (similarity search)
+     ↓
+🔎 Relevant Chunks Retrieved on Query
+     ↓
+🤖 Groq LLM (context + query → answer)
+     ↓
+💬 Response shown in chat UI
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## ✨ Features
 
-To learn more about developing your project with Expo, look at the following resources:
+- 📤 Upload PDF documents directly from your Android device
+- 💬 Chat interface to ask questions about your document
+- 🔎 RAG pipeline — answers sourced from actual document content
+- ⚡ Groq-powered inference for blazing fast responses
+- 🧠 Context-aware — maintains conversation history
+- 🚫 No hallucinations — grounded responses only
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## 🛠️ Tech Stack
 
-Join our community of developers creating universal apps.
+| Layer | Technology |
+|---|---|
+| Mobile Frontend | React Native + Expo 54 |
+| Language | TypeScript |
+| Navigation | Expo Router (file-based) |
+| UI | Expo Vector Icons, React Navigation |
+| Animations | react-native-reanimated |
+| LLM Backend | Groq API |
+| RAG Pipeline | Python backend (see backend repo) |
+| Embeddings | Sentence Transformers / OpenAI Embeddings |
+| Vector Store | FAISS / ChromaDB |
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+> **Note:** This repo is the **React Native frontend only**. The RAG + Groq backend is a separate Python service.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js ≥ 18
+- npm or yarn
+- [Expo Go](https://expo.dev/go) on Android **or** Android Studio emulator
+- Backend server running (see [Backend Setup](#backend-setup))
+
+### Frontend Setup
+
+```bash
+# Clone the repo
+git clone https://github.com/Krishna-Vitthal/PaperBrain.git
+cd PaperBrain
+
+# Install dependencies
+npm install
+
+# Start the dev server
+npx expo start
+```
+
+Scan the QR code with **Expo Go**, or press `a` for the Android emulator.
+
+### Backend Setup
+
+The backend handles PDF parsing, chunking, embedding, vector search, and Groq inference.
+
+```bash
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Add your Groq API key
+echo "GROQ_API_KEY=your_key_here" > .env
+
+# Run the server
+python app.py
+```
+
+> Update the API base URL in the frontend constants to point to your running backend.
+
+---
+
+## 📁 Project Structure
+
+```
+PaperBrain/
+├── app/
+│   ├── (tabs)/
+│   │   └── _layout.tsx       # Tab navigator
+│   ├── index.tsx             # Home / Upload screen
+│   ├── chat.tsx              # Chat interface
+│   └── _layout.tsx           # Root layout
+├── components/               # Reusable UI components
+├── constants/                # API URLs, config
+├── hooks/                    # Custom hooks
+└── assets/
+    └── images/
+```
+
+---
+
+## 📦 Scripts
+
+```bash
+npm start          # Start Expo dev server
+npm run android    # Open on Android emulator
+npm run web        # Open in browser
+npm run lint       # Run ESLint
+```
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the backend directory:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+Never commit API keys to the repo.
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Multi-PDF support
+- [ ] Chat history persistence
+- [ ] Highlight source chunks in the PDF
+- [ ] Document management screen
+- [ ] Local embedding option (on-device)
+
+---
+
+## 👤 Author
+
+**Vitthal Krishna**
+- GitHub: [@Krishna-Vitthal](https://github.com/Krishna-Vitthal)
+- B.Tech CSE (Systems Engineering), KIIT University
